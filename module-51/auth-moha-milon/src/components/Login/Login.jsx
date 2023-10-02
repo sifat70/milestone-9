@@ -6,7 +6,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 const Login = () => {
 
 
-    const { signInUser, signInWithGoogle } = useContext(AuthContext)
+    const { signInUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handleSubmit = e => {
@@ -25,12 +25,20 @@ const Login = () => {
     }
 
 
-    const handleGoogleSignIn = () =>{
+    const handleGoogleSignIn = () => {
         signInWithGoogle()
-        .then(result => {
-            console.log(result)
-        })
-        .catch(error => console.log(error))
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => console.log(error))
+    }
+
+    const handleFacebookSignIn = () => {
+        signInWithFacebook()
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => console.log(error))
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -64,6 +72,7 @@ const Login = () => {
                             New here milon? Please <Link to="/register"><button className="btn btn-active btn-link">Register</button></Link>
                         </p>
                         <p><button onClick={handleGoogleSignIn} className="btn btn-active btn-ghost">Google</button></p>
+                        <p><button onClick={handleFacebookSignIn} className="btn btn-active btn-ghost">Facebook</button></p>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'; // ES6
 import auth from "../firebase/firebase.config";
@@ -7,6 +7,7 @@ import auth from "../firebase/firebase.config";
 export const AuthContext = createContext(null)
 
 const googleProvider = new GoogleAuthProvider()
+const facebookProvider = new FacebookAuthProvider()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -28,7 +29,14 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider)
     }
 
-    const logOut = () =>{
+    const signInWithFacebook = () => {
+        setLoading(true)
+        return signInWithPopup(auth, facebookProvider)
+    }
+
+
+
+    const logOut = () => {
         setLoading(true)
         return signOut(auth)
     }
@@ -36,8 +44,8 @@ const AuthProvider = ({ children }) => {
 
     // observe auth state change
 
-    useEffect(() =>{
-        const unSubscribe = onAuthStateChanged(auth, currentUser =>{
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('obserbing current user inside useEffect of AuthProvider', currentUser)
             setUser(currentUser)
             setLoading(false)
@@ -48,7 +56,7 @@ const AuthProvider = ({ children }) => {
         }
     })
 
-    const authInfo = { user, logOut, loading , signInWithGoogle, createUser, signInUser }
+    const authInfo = { user, logOut, loading, signInWithGoogle, signInWithFacebook, createUser, signInUser }
     return (
         <div>
             <AuthContext.Provider value={authInfo}>

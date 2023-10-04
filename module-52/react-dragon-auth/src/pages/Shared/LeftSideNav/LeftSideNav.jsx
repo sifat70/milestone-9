@@ -34,14 +34,16 @@ const LeftSideNav = () => {
             {/* student */}
             <div>
                 {
-                    students.map(student => <div key={student.id} className="mt-5">
-                        <div className="card bg-base-100">
-                            <figure><img src={student?.thumbnail_url} alt="Shoes" /></figure>
-                            <div className="card-body">
-                                <p>{student?.title}</p>
-                                <div className="card-actions">
-                                    <p className="font-bold">Sports</p>
-                                    <p className="flex items-center"><FaCalendarAlt className="mr-2"></FaCalendarAlt>{moment().format("MMM D , YY")}</p>
+                    students.map(student => <div key={student._id}>
+                        <div className="mt-5">
+                            <div className="card bg-base-100">
+                                <figure><img src={student?.thumbnail_url} alt="Shoes" /></figure>
+                                <div className="card-body">
+                                    <p>{student?.title}</p>
+                                    <div className="card-actions">
+                                        <p className="font-bold">Sports</p>
+                                        <p className="flex items-center"><FaCalendarAlt className="mr-2"></FaCalendarAlt>{moment().format("MMM D , YY")}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
